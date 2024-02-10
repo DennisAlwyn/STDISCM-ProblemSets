@@ -8,6 +8,9 @@ public class Main{
     public static final int FRAME_HEIGHT = 720;
     public static final int SIZE = 650;
 
+    //JFrame
+    public static JFrame frame;
+
     //JPanels
     public static SimulatorPanel simulator;
 
@@ -18,7 +21,7 @@ public class Main{
     public static void main(String[] args){
         
         //Create Window with JFrame
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setTitle("Group 5 Particle Simulator");
