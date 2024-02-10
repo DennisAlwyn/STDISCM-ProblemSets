@@ -4,7 +4,7 @@ public class Particle {
     public double x, y; //Coordinates of particle
     private double xRef, yRef; //Coordinates of reflection
     private int waitTime; //How long should this particle wait before updating in nanoseconds
-    private int lastUpdate; //System.nanotime of last time the particle was updated
+    private long lastUpdate; //System.nanotime of last time the particle was updated
     private int angle; //Angle that the particle is moving
     private boolean hasReflected; //Checks if particle has already reflected to prevent multiple relfections
 
@@ -22,10 +22,13 @@ public class Particle {
         yRef = -420;
     }
 
-    private void move(){ //Method for moving the particle
+    public void move(){ //Method for moving the particle
         if((System.nanoTime() - lastUpdate) >= waitTime){ //If it is time for the particle to move
-            x += Math.cos(angle); //Add cosine of angle to get x movement
-            y += Math.sin(angle)*-1; //Add sine of angle to get y movement. Multiple by -1 since x axis is flipped
+            //Set lastUpdate to nanotime
+            lastUpdate = System.nanoTime();
+
+            x += Math.cos(Math.toRadians(angle)); //Add cosine of angle to get x movement
+            y += Math.sin(Math.toRadians(angle))*-1; //Add sine of angle to get y movement. Multiple by -1 since x axis is flipped
 
             if(Math.abs(xRef-Math.round(x)) >= 1 || Math.abs(yRef-Math.round(y)) >= 1){ //Check if the particle has moved away from the wall
                 hasReflected = false; //Particle has moved sufficiently, no longer reflecting
@@ -36,7 +39,7 @@ public class Particle {
         }
     }
 
-    private void reflect(){ //Determines new angle on reflection
+    public void reflect(){ //Determines new angle on reflection
         if(!hasReflected){ //Particle has not yet reflected
             hasReflected = true; //Particle is now reflecting
             

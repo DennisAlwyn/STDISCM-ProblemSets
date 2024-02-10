@@ -42,6 +42,12 @@ public class Main{
         frame.add(simulator);
         rendererThread = new rendererObject();
         rendererThread.start();//Start rendering thread
+
+        //TestParticle
+        particles.add(new Particle(100, 100, 50, 300));
+        while(true){
+            particles.get(0).move();
+        }
     }
 
     public static class SimulatorPanel extends JPanel{ //Class for the Particle simulator JPanel
@@ -65,9 +71,14 @@ public class Main{
             //Set Draw Color to Green
             g2D.setColor(Color.GREEN);
 
-            //Draw stuff. Remove Later
-            g2D.drawLine(0, 0, 200, 200); //Wall Example
-            g2D.drawOval(100, 10, 3, 3); //Particle Example
+            //Draw Particles
+            int tempX, tempY;
+            int numParticles = particles.size();
+            for(int i = 0; i < numParticles; i++){
+                tempX = (int)Math.round(particles.get(i).x);
+                tempY = (int)Math.round(particles.get(i).y);
+                g2D.fillOval(tempX, tempY, 3, 3);
+            }
         }
     }
 
@@ -82,8 +93,9 @@ public class Main{
                     currentFPS = totalFrames*2; //Since the check is in every 0.5s
                     totalFrames = 0;
 
-                    //Debug
-                    System.out.println("FPS: " + String.valueOf(currentFPS));
+                    //Display FPS
+                    System.out.println("FPS: " + String.valueOf(currentFPS)); //DEBUG REMOVE LATER
+                    //TODO: Display FPS in a counter somewhere later
                 }
 
                 //Repaint simulator
