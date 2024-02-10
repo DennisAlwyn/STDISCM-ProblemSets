@@ -1,5 +1,3 @@
-import java.math.*;
-
 public class Particle {
     public double x, y; //Coordinates of particle
     private double xRef, yRef; //Coordinates of reflection

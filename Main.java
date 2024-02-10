@@ -17,6 +17,7 @@ public class Main{
 
     //Threads
     public static Thread rendererThread;
+    public static ArrayList<ParticleObject> particleThreads = new ArrayList<>();
 
     //FPS
     public static long lastFPSCheck = 0;
@@ -43,16 +44,36 @@ public class Main{
         rendererThread = new rendererObject();
         rendererThread.start();//Start rendering thread
 
-        //Test Particle Movement and Reflection
-        particles.add(new Particle(100, 100, 1000, 1));
-        while(true){
-            particles.get(0).move();
-            if(particles.get(0).x >= SIM_WIDTH || particles.get(0).x <= 0 || particles.get(0).y >= SIM_HEIGHT
-            || particles.get(0).y <= 0)
-                {
-                    particles.get(0).reflect();
-                    System.out.println(String.valueOf("Angle: " + particles.get(0).angle));
+        //TODO: Add Particle and wall creation Panels
+
+        //Make Particle Threads
+        for(int i = 0; i < 9; i++){
+            particleThreads.add(new ParticleObject());
+            particleThreads.get(i).start();
+        }
+
+        //Test particleObject Threads DEBUG
+        for(int i = 0; i < 20000; i++){
+            particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2*i));
+        }
+
+        int threadIndex = 0;
+        int numParticles;
+        while(true){ //Assigning loop
+            if(particles.size() <= 0)
+                continue; //Do not start if there are no particles
+
+            numParticles = particles.size(); //Re-check if new particles have been added
+
+            for(int i = 0; i < numParticles; i++){ //Loop through particles
+                if(particleThreads.get(threadIndex).isAvailable){ //Assign particle if thread available
+                    particleThreads.get(threadIndex).particleIndex = i; //Assign particle
+                    particleThreads.get(threadIndex).interrupt(); //Wake up thread
                 }
+                threadIndex++; //Increment index
+                if(threadIndex >= particleThreads.size()) //Reset at limit
+                    threadIndex = 0;
+            }
         }
     }
 
@@ -67,7 +88,7 @@ public class Main{
             //Call paintComponent from JPanel
             super.paintComponent(g);
 
-            //Cast grahics to g2D
+            //Cast graphics to g2D
             Graphics2D g2D = (Graphics2D) g;
 
             //Clear screen
@@ -85,6 +106,23 @@ public class Main{
                 tempY = (int)Math.round(particles.get(i).y);
                 g2D.fillOval(tempX, tempY, 3, 3);
             }
+
+            //TODO: Draw Walls
+        }
+    }
+
+    public static void fpsCounter(){
+        totalFrames++;
+        //Display FPS
+        if(System.nanoTime() > lastFPSCheck + 500000000){
+            System.out.println("FPS: " + String.valueOf(currentFPS)); //DEBUG REMOVE LATER
+            //TODO: Display FPS in a counter somewhere later
+        }
+        //Measure FPS
+        if(System.nanoTime() > lastFPSCheck + 1000000000){
+            lastFPSCheck = System.nanoTime();
+            currentFPS = totalFrames;
+            totalFrames = 0;
         }
     }
 
@@ -92,17 +130,7 @@ public class Main{
 
         public void run(){
             while(true){
-                //FPS Counter
-                totalFrames++;
-                if(System.nanoTime() > lastFPSCheck + 500000000){ //Checks every half second
-                    lastFPSCheck = System.nanoTime();
-                    currentFPS = totalFrames*2; //Since the check is in every 0.5s
-                    totalFrames = 0;
-
-                    //Display FPS
-                    System.out.println("FPS: " + String.valueOf(currentFPS)); //DEBUG REMOVE LATER
-                    //TODO: Display FPS in a counter somewhere later
-                }
+                fpsCounter();
 
                 //Repaint simulator
                 simulator.repaint();
@@ -114,6 +142,37 @@ public class Main{
                     System.err.println(e.getMessage());
                 }
                 
+            }
+        }
+    }
+
+    public static class ParticleObject extends Thread{
+        public boolean isAvailable = true; //Determines if thread is available
+        public int particleIndex = 0;
+
+        public void run(){
+            while(true){
+                isAvailable = true;
+                try {
+                    Thread.sleep(500000000*500000000*500000000);
+                } catch (Exception e) {
+                    isAvailable = false; //Thread is processing something
+
+                    //Particle Moves
+                    if(particles.size() > 0){ //Error prevention
+                        particles.get(particleIndex).move();
+
+                        //Process Particle border reflections
+                        if(particles.get(particleIndex).x >= SIM_WIDTH
+                        || particles.get(particleIndex).x <= 0
+                        || particles.get(particleIndex).y >= SIM_HEIGHT
+                        || particles.get(particleIndex).y <= 0){
+                            particles.get(particleIndex).reflect();
+                        }
+
+                        //TODO: Process Particle wall reflections
+                    }
+                }
             }
         }
     }
