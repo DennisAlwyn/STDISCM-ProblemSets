@@ -40,6 +40,8 @@ public class Main{
         //Add Simulator Panel
         simulator = new SimulatorPanel();
         frame.add(simulator);
+        rendererThread = new rendererObject();
+        rendererThread.start();//Start rendering thread
     }
 
     public static class SimulatorPanel extends JPanel{ //Class for the Particle simulator JPanel
@@ -73,7 +75,27 @@ public class Main{
 
         public void run(){
             while(true){
+                //FPS Counter
+                totalFrames++;
+                if(System.nanoTime() > lastFPSCheck + 500000000){ //Checks every half second
+                    lastFPSCheck = System.nanoTime();
+                    currentFPS = totalFrames*2; //Since the check is in every 0.5s
+                    totalFrames = 0;
 
+                    //Debug
+                    System.out.println("FPS: " + String.valueOf(currentFPS));
+                }
+
+                //Repaint simulator
+                simulator.repaint();
+
+                //Cap FPS
+                try {
+                    Thread.sleep(1000/70);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+                
             }
         }
     }
