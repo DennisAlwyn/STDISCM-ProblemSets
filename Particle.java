@@ -47,7 +47,10 @@ public class Particle {
             xRef = Math.round(x);
             yRef = Math.round(y);
             
-            angle += 270;
+            if(angle == 0 || angle == 180)
+                angle += 180;
+            else
+                angle += 270;
             if(angle >= 360) //Reduce by 1 full circle if angle >= 360
                 angle -= 360;
             if(angle < 0)
