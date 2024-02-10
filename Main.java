@@ -43,10 +43,16 @@ public class Main{
         rendererThread = new rendererObject();
         rendererThread.start();//Start rendering thread
 
-        //TestParticle
-        particles.add(new Particle(100, 100, 50, 300));
+        //Test Particle Movement and Reflection
+        particles.add(new Particle(100, 100, 1000, 1));
         while(true){
             particles.get(0).move();
+            if(particles.get(0).x >= SIM_WIDTH || particles.get(0).x <= 0 || particles.get(0).y >= SIM_HEIGHT
+            || particles.get(0).y <= 0)
+                {
+                    particles.get(0).reflect();
+                    System.out.println(String.valueOf("Angle: " + particles.get(0).angle));
+                }
         }
     }
 
