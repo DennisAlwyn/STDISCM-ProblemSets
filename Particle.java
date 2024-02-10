@@ -27,7 +27,7 @@ public class Particle {
             x += Math.cos(angle); //Add cosine of angle to get x movement
             y += Math.sin(angle)*-1; //Add sine of angle to get y movement. Multiple by -1 since x axis is flipped
 
-            if(Math.abs(xRef-x) >= 1 && Math.abs(yRef-y) >= 1){ //Check if the particle has moved away from the wall
+            if(Math.abs(xRef-Math.round(x)) >= 1 || Math.abs(yRef-Math.round(y)) >= 1){ //Check if the particle has moved away from the wall
                 hasReflected = false; //Particle has moved sufficiently, no longer reflecting
                 //Reset values
                 xRef = -420;
@@ -41,8 +41,8 @@ public class Particle {
             hasReflected = true; //Particle is now reflecting
             
             //Record reflection coordinates
-            xRef = x;
-            yRef = y;
+            xRef = Math.round(x);
+            yRef = Math.round(y);
 
             angle += 90;
             if(angle >= 360) //Reduce by 1 full circle if angle >= 360
