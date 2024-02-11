@@ -1,5 +1,6 @@
 public class Particle {
     public double x, y; //Coordinates of particle
+    private double vX, vY; //Velocity components
     private double xRef, yRef; //Coordinates of reflection
     private int waitTime; //How long should this particle wait before updating in nanoseconds
     private long lastUpdate; //System.nanotime of last time the particle was updated
@@ -18,6 +19,11 @@ public class Particle {
         //Set these to impossible coords so that it doesn't cause errors maybe...
         xRef = -420;
         yRef = -420;
+
+        //Set velocity components
+        double radAngle = Math.toRadians(angle);
+        vX = Math.cos(radAngle); //Add cosine of angle to get x movement
+        vY = Math.sin(radAngle)*-1; //Add sine of angle to get y movement. Multiple by -1 since x axis is flipped
     }
 
     public boolean move(){ //Method for moving the particle
@@ -25,8 +31,9 @@ public class Particle {
             //Set lastUpdate to nanotime
             lastUpdate = System.nanoTime();
 
-            x += Math.cos(Math.toRadians(angle)); //Add cosine of angle to get x movement
-            y += Math.sin(Math.toRadians(angle))*-1; //Add sine of angle to get y movement. Multiple by -1 since x axis is flipped
+            //Move particle to new pos
+            x += vX;
+            y += vY;
 
             if(Math.abs(xRef-Math.round(x)) >= 5 || Math.abs(yRef-Math.round(y)) >= 5){ //Check if the particle has moved away from the wall
                 hasReflected = false; //Particle has moved sufficiently, no longer reflecting
@@ -39,7 +46,7 @@ public class Particle {
         return false; //Particle does not move yet.
     }
 
-    public void reflect(){ //Determines new angle on reflection
+    public void reflect(int wallAngle){ //Determines new angle on reflection
         if(!hasReflected){ //Particle has not yet reflected
             hasReflected = true; //Particle is now reflecting
             
@@ -47,14 +54,13 @@ public class Particle {
             xRef = Math.round(x);
             yRef = Math.round(y);
             
-            if(angle == 0 || angle == 180 || angle == 90 || angle == 270)
-                angle += 180;
-            else
-                angle += 270;
-            if(angle >= 360) //Reduce by 1 full circle if angle >= 360
-                angle -= 360;
-            if(angle < 0)
-                angle += 360;
+            //Calc new vX and vY
+            double radAngle = Math.toRadians(wallAngle);
+            double nX = -Math.sin(radAngle);
+            double nY = Math.cos(radAngle);
+            double dotProduct = (vX*nX) + (vY*nY);
+            vX = vX - 2 * dotProduct * nX;
+            vY = vY -2 * dotProduct * nY;
         }
     }
 }
