@@ -153,7 +153,8 @@ public class Main{
     public static void fpsCounter(){
         //Display FPS
         if(System.nanoTime() > lastFPSCheck + 500000000){
-            fpsCounter.repaint(); //Refresh fps
+            if(fpsCounter != null)
+                fpsCounter.repaint(); //Refresh fps
         }
         //Measure FPS
         if(System.nanoTime() > lastFPSCheck + 1000000000){
