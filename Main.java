@@ -160,17 +160,19 @@ public class Main{
 
                     //Particle Moves
                     if(particles.size() > 0){ //Error prevention
-                        particles.get(particleIndex).move();
+                        boolean hasMoved = particles.get(particleIndex).move();
+                        
+                        if(hasMoved){ //Only do reflection checks if particle has moved
+                            //Process Particle border reflections
+                            if(particles.get(particleIndex).x >= SIM_WIDTH
+                            || particles.get(particleIndex).x <= 0
+                            || particles.get(particleIndex).y >= SIM_HEIGHT
+                            || particles.get(particleIndex).y <= 0){
+                                particles.get(particleIndex).reflect();
+                            }
 
-                        //Process Particle border reflections
-                        if(particles.get(particleIndex).x >= SIM_WIDTH
-                        || particles.get(particleIndex).x <= 0
-                        || particles.get(particleIndex).y >= SIM_HEIGHT
-                        || particles.get(particleIndex).y <= 0){
-                            particles.get(particleIndex).reflect();
+                            //TODO: Process Particle wall reflections
                         }
-
-                        //TODO: Process Particle wall reflections
                     }
                 }
             }

@@ -20,7 +20,7 @@ public class Particle {
         yRef = -420;
     }
 
-    public void move(){ //Method for moving the particle
+    public boolean move(){ //Method for moving the particle
         if((System.nanoTime() - lastUpdate) >= waitTime){ //If it is time for the particle to move
             //Set lastUpdate to nanotime
             lastUpdate = System.nanoTime();
@@ -34,7 +34,9 @@ public class Particle {
                 xRef = -420;
                 yRef = -420;
             }
+            return true; //Particle moves
         }
+        return false; //Particle does not move yet.
     }
 
     public void reflect(){ //Determines new angle on reflection
