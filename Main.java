@@ -116,7 +116,6 @@ public class Main{
     }
 
     public static void fpsCounter(){
-        totalFrames++;
         //Display FPS
         if(System.nanoTime() > lastFPSCheck + 500000000){
             System.out.println("FPS: " + String.valueOf(currentFPS)); //DEBUG REMOVE LATER
@@ -125,7 +124,8 @@ public class Main{
         //Measure FPS
         if(System.nanoTime() > lastFPSCheck + 1000000000){
             lastFPSCheck = System.nanoTime();
-            currentFPS = totalFrames;
+            if(particles.size() > 0)
+                currentFPS = (totalFrames / particles.size());
             totalFrames = 0;
         }
     }
@@ -134,18 +134,9 @@ public class Main{
 
         public void run(){
             while(true){
-                fpsCounter();
-
                 //Repaint simulator
                 simulator.repaint();
-
-                //Cap FPS
-                try {
-                    Thread.sleep(1000/70);
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
-                
+                fpsCounter();
             }
         }
     }
@@ -176,6 +167,8 @@ public class Main{
                             }
 
                             //TODO: Process Particle wall reflections
+
+                            totalFrames++;
                         }
                     }
                 }
