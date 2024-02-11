@@ -63,7 +63,7 @@ public class Main{
         }
 
         //TEST WALL DEBUG
-        walls.add(new Wall(10, 10, 600, 600));
+        walls.add(new Wall(0, 0, 600, 600));
 
         int threadIndex = 0;
         int numParticles;
