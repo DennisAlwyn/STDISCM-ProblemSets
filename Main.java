@@ -58,7 +58,7 @@ public class Main{
         }
 
         //Test particleObject Threads DEBUG
-        for(int i = 0; i < 20000; i++){
+        for(int i = 0; i < 2000; i++){
             particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2*i));
         }
 

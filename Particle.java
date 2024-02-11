@@ -1,7 +1,6 @@
 public class Particle {
     public double x, y; //Coordinates of particle
     private double vX, vY; //Velocity components
-    private double xRef, yRef; //Coordinates of reflection
     private int waitTime; //How long should this particle wait before updating in nanoseconds
     private long lastUpdate; //System.nanotime of last time the particle was updated
     public int angle; //Angle that the particle is moving
@@ -15,10 +14,6 @@ public class Particle {
         lastUpdate = 0;
         waitTime = 1000000000 / speed; //Divides 1 second in ns by speed to get movement speed
         hasReflected = false;
-
-        //Set these to impossible coords so that it doesn't cause errors maybe...
-        xRef = -420;
-        yRef = -420;
 
         //Set velocity components
         double radAngle = Math.toRadians(angle);
@@ -35,12 +30,7 @@ public class Particle {
             x += vX;
             y += vY;
 
-            if(Math.abs(xRef-Math.round(x)) >= 5 || Math.abs(yRef-Math.round(y)) >= 5){ //Check if the particle has moved away from the wall
-                hasReflected = false; //Particle has moved sufficiently, no longer reflecting
-                //Reset values
-                xRef = -420;
-                yRef = -420;
-            }
+            hasReflected = false;
             return true; //Particle moves
         }
         return false; //Particle does not move yet.
@@ -49,10 +39,6 @@ public class Particle {
     public void reflect(int wallAngle){ //Determines new angle on reflection
         if(!hasReflected){ //Particle has not yet reflected
             hasReflected = true; //Particle is now reflecting
-            
-            //Record reflection coordinates
-            xRef = Math.round(x);
-            yRef = Math.round(y);
             
             //Calc new vX and vY
             double radAngle = Math.toRadians(wallAngle);
