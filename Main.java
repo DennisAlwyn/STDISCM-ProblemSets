@@ -194,16 +194,18 @@ public class Main{
                         if(hasMoved){ //Only do reflection checks if particle has moved
                             //Process Particle border reflections
                             if(particles.get(particleIndex).x >= SIM_WIDTH
-                            || particles.get(particleIndex).x <= 0
-                            || particles.get(particleIndex).y >= SIM_HEIGHT
+                            || particles.get(particleIndex).x <= 0){
+                                particles.get(particleIndex).reflect(90); //Flat vertical wall
+                            }
+                            else if(particles.get(particleIndex).y >= SIM_HEIGHT
                             || particles.get(particleIndex).y <= 0){
-                                particles.get(particleIndex).reflect();
+                                particles.get(particleIndex).reflect(180); //Flat horizontal wall
                             }
 
                             //TODO: Process Particle wall reflections
                             for(int i = 0; i < walls.size(); i++){
                                 if(walls.get(i).hasCollided(particles.get(particleIndex))){ //If p hits wall
-                                    particles.get(particleIndex).reflect();
+                                    particles.get(particleIndex).reflect(walls.get(i).angle);
                                     break; //Then stop checking
                                 }
                             }
