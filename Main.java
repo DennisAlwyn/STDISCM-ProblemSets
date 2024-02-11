@@ -66,13 +66,17 @@ public class Main{
             numParticles = particles.size(); //Re-check if new particles have been added
 
             for(int i = 0; i < numParticles; i++){ //Loop through particles
-                if(particleThreads.get(threadIndex).isAvailable){ //Assign particle if thread available
-                    particleThreads.get(threadIndex).particleIndex = i; //Assign particle
-                    particleThreads.get(threadIndex).interrupt(); //Wake up thread
+                while(true){
+                    if(threadIndex >= particleThreads.size()) //Reset at limit
+                        threadIndex = 0;
+                    if(particleThreads.get(threadIndex).isAvailable){ //Assign particle if thread available
+                        particleThreads.get(threadIndex).particleIndex = i; //Assign particle
+                        particleThreads.get(threadIndex).interrupt(); //Wake up thread
+                        threadIndex++; //Increment index, thread is now occupied
+                        break; //Move to next particle
+                    }
+                    threadIndex++; //Increment index, thread is already busy
                 }
-                threadIndex++; //Increment index
-                if(threadIndex >= particleThreads.size()) //Reset at limit
-                    threadIndex = 0;
             }
         }
     }

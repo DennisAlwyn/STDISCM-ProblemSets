@@ -47,7 +47,7 @@ public class Particle {
             xRef = Math.round(x);
             yRef = Math.round(y);
             
-            if(angle == 0 || angle == 180)
+            if(angle == 0 || angle == 180 || angle == 90 || angle == 270)
                 angle += 180;
             else
                 angle += 270;
