@@ -27,7 +27,7 @@ public class Main{
 
     //ArrayLists of walls and particles
     public static ArrayList<Particle> particles = new ArrayList<>();
-    //TODO: Add walls later
+    public static ArrayList<Wall> walls = new ArrayList<>();
 
     public static void main(String[] args){
         
@@ -61,6 +61,9 @@ public class Main{
         for(int i = 0; i < 20000; i++){
             particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2*i));
         }
+
+        //TEST WALL DEBUG
+        walls.add(new Wall(10, 10, 600, 600));
 
         int threadIndex = 0;
         int numParticles;
@@ -141,6 +144,10 @@ public class Main{
             }
 
             //TODO: Draw Walls
+            int numWalls = walls.size();
+            for(int i = 0; i < numWalls; i++){
+                g2D.drawLine(walls.get(i).x1, walls.get(i).y1, walls.get(i).x2, walls.get(i).y2);
+            }
         }
     }
 
