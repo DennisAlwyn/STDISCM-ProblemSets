@@ -1,12 +1,14 @@
 public class Wall {
     public int x1, y1; //Start point
     public int x2, y2; //End point
+    public int angle; //Angle of line (deg)
 
     public Wall(int sX, int sY, int eX, int eY){
         x1 = sX;
         y1 = sY;
         x2 = eX;
         y2 = eY;
+        angle = (int)Math.toDegrees(Math.atan((y2-y1)/(x2-x1)));
     }
 
     public boolean hasCollided(Particle p){
