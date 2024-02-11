@@ -28,6 +28,7 @@ public class Main{
     //ArrayLists of walls and particles
     public static ArrayList<Particle> particles = new ArrayList<>();
     public static ArrayList<Wall> walls = new ArrayList<>();
+    //NOTE: Any wall or particle that is added to the above lists will automatically be rendered
 
     public static void main(String[] args){
         
@@ -205,7 +206,7 @@ public class Main{
                                 particles.get(particleIndex).reflect(180); //Flat horizontal wall
                             }
 
-                            //TODO: Process Particle wall reflections
+                            //Process Particle wall reflections
                             for(int i = 0; i < walls.size(); i++){
                                 if(walls.get(i).hasCollided(particles.get(particleIndex))){ //If p hits wall
                                     particles.get(particleIndex).reflect(walls.get(i).angle);
