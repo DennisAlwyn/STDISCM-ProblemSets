@@ -21,7 +21,7 @@ public class Wall {
         //Determine if point is in line
         int crossProduct = (pxs * eys) - (pys * exs);
 
-        if(crossProduct <= 0.1 && crossProduct >= -0.1){ //Point lies on line
+        if(Math.abs(crossProduct) < 0.1){ //Point lies on line
             //Check if point is in wall coords
             if(Math.abs(exs) >= Math.abs(eys)){
                 return exs > 0 ? 
