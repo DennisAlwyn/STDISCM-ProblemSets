@@ -143,7 +143,6 @@ public class Main{
                 g2D.fillOval(tempX, tempY, 3, 3);
             }
 
-            //TODO: Draw Walls
             int numWalls = walls.size();
             for(int i = 0; i < numWalls; i++){
                 g2D.drawLine(walls.get(i).x1, walls.get(i).y1, walls.get(i).x2, walls.get(i).y2);
@@ -202,7 +201,12 @@ public class Main{
                             }
 
                             //TODO: Process Particle wall reflections
-
+                            for(int i = 0; i < walls.size(); i++){
+                                if(walls.get(i).hasCollided(particles.get(particleIndex))){ //If p hits wall
+                                    particles.get(particleIndex).reflect();
+                                    break; //Then stop checking
+                                }
+                            }
                             totalFrames++;
                         }
                     }
