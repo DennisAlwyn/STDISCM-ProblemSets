@@ -36,13 +36,13 @@ public class Particle {
         return false; //Particle does not move yet.
     }
 
-    public void reflect(int wallAngle){ //Determines new angle on reflection
+    public void reflect(double wallAngle){ //Determines new angle on reflection
         if(!hasReflected){ //Particle has not yet reflected
             hasReflected = true; //Particle is now reflecting
             
             //Calc new vX and vY
             double radAngle = Math.toRadians(wallAngle);
-            double nX = -Math.sin(radAngle);
+            double nX = Math.sin(radAngle);
             double nY = Math.cos(radAngle);
             double dotProduct = (vX*nX) + (vY*nY);
             vX = vX - 2 * dotProduct * nX;

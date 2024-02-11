@@ -1,14 +1,14 @@
 public class Wall {
     public int x1, y1; //Start point
     public int x2, y2; //End point
-    public int angle; //Angle of line (deg)
+    public double angle; //Angle of line (deg)
 
     public Wall(int sX, int sY, int eX, int eY){
         x1 = sX;
         y1 = sY;
         x2 = eX;
         y2 = eY;
-        angle = (int)Math.toDegrees(Math.atan((y2-y1)/(x2-x1)));
+        angle = Math.toDegrees(-Math.atan2((double)(y2-y1), (x2-x1)));
     }
 
     public boolean hasCollided(Particle p){
@@ -27,7 +27,8 @@ public class Wall {
         //Determine if point is in line
         int crossProduct = (pxs * eys) - (pys * exs);
 
-        if(Math.abs(crossProduct) < 0.1){ //Point lies on line
+        //NOTE: Adjust the number below here to determine how impermeable the walls are
+        if(Math.abs(crossProduct) < 1500){ //Point lies on line
             //Check if point is in wall coords
             if(Math.abs(exs) >= Math.abs(eys)){
                 return exs > 0 ? 

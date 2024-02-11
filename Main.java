@@ -57,13 +57,15 @@ public class Main{
             particleThreads.get(i).start();
         }
 
-        //Test particleObject Threads DEBUG
+        //TODO: Test particleObject Threads REMOVE DEBUG
         for(int i = 0; i < 2000; i++){
             particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2*i));
         }
 
-        //TEST WALL DEBUG
-        walls.add(new Wall(0, 0, 600, 600));
+        //TODO: REMOVE TEST WALLS DEBUG
+        for(int i = 0; i < 13; i++){
+            walls.add(new Wall(30+(100*i), 100, 30+(100*i), 600));
+        }  
 
         int threadIndex = 0;
         int numParticles;
@@ -131,10 +133,8 @@ public class Main{
             g2D.setColor(Color.BLACK);
             g2D.fillRect(0, 0, SIM_WIDTH, SIM_HEIGHT);
 
-            //Set Draw Color to Green
-            g2D.setColor(Color.GREEN);
-
             //Draw Particles
+            g2D.setColor(Color.GREEN); //Set Particle color
             int tempX, tempY;
             int numParticles = particles.size();
             for(int i = 0; i < numParticles; i++){
@@ -142,7 +142,9 @@ public class Main{
                 tempY = (int)Math.round(particles.get(i).y);
                 g2D.fillOval(tempX, tempY, 3, 3);
             }
-
+            
+            //Draw Walls
+            g2D.setColor(Color.BLUE); //Set Wall color
             int numWalls = walls.size();
             for(int i = 0; i < numWalls; i++){
                 g2D.drawLine(walls.get(i).x1, walls.get(i).y1, walls.get(i).x2, walls.get(i).y2);
