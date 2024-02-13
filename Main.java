@@ -26,9 +26,6 @@ public class Main{
     public static int currentFPS = 0;
     public static int totalFrames = 0;
 
-    public static int particlecounter = 0;
-    public static int wallcounter = 0;
-
     //ArrayLists of walls and particles
     public static ArrayList<Particle> particles = new ArrayList<>();
     public static ArrayList<Wall> walls = new ArrayList<>();
@@ -64,16 +61,14 @@ public class Main{
         addParticle.addActionListener(new ActionListener() {
            
             public void actionPerformed(ActionEvent e) {
-                particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2* particlecounter));
-                particlecounter++;
+                particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2* particles.size()));
             }
         });
 
         addWall.addActionListener(new ActionListener() {
            
             public void actionPerformed(ActionEvent e) {
-                walls.add(new Wall(30+(100* wallcounter), 100, 30+(100 * wallcounter ), 600));
-                wallcounter++;
+                walls.add(new Wall(30+(100* walls.size()), 100, 30+(100 * walls.size() ), 600));
             }
         });
         
@@ -83,23 +78,14 @@ public class Main{
             particleThreads.get(i).start();
         }
 
-        //TODO: Test particleObject Threads REMOVE DEBUG
-    //  for(int i = 0; i < 2000; i++){
-    //        particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2*i));
-    //    }
-
-        //TODO: REMOVE TEST WALLS DEBUG
-    //  for(int i = 0; i < 13; i++){
-    //       walls.add(new Wall(30+(100*i), 100, 30+(100*i), 600));
-    //   }  
-
         int threadIndex = 0;
         int numParticles;
         while(true){ //Assigning loop
-            if(particles.size() <= 0)
-                continue; //Do not start if there are no particles
-
             numParticles = particles.size(); //Re-check if new particles have been added
+            System.out.println("Program is running...");
+
+            if(numParticles <= 0)
+                continue; //Do not start if there are no particles
 
             for(int i = 0; i < numParticles; i++){ //Loop through particles
                 while(true){
