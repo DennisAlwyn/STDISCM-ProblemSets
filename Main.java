@@ -82,7 +82,7 @@ public class Main{
         int numParticles;
         while(true){ //Assigning loop
             numParticles = particles.size(); //Re-check if new particles have been added
-            System.out.println("Program is running...");
+            System.out.println("Program is running..."); //NOTICE: LOAD BEARING PRINT STATEMENT. DO NOT REMOVE!!!
 
             if(numParticles <= 0)
                 continue; //Do not start if there are no particles
