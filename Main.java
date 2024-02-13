@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Main{
@@ -11,7 +12,7 @@ public class Main{
 
     //JFrame
     public static JFrame frame;
-
+    
     //JPanels
     public static SimulatorPanel simulator;
     public static FPSPanel fpsCounter;
@@ -24,6 +25,9 @@ public class Main{
     public static long lastFPSCheck = 0;
     public static int currentFPS = 0;
     public static int totalFrames = 0;
+
+    public static int particlecounter = 0;
+    public static int wallcounter = 0;
 
     //ArrayLists of walls and particles
     public static ArrayList<Particle> particles = new ArrayList<>();
@@ -51,7 +55,28 @@ public class Main{
         frame.add(fpsCounter);
 
         //TODO: Add Particle and wall creation Panels
+        JButton addParticle = new JButton("Add Particle");
+        JButton addWall = new JButton("Add Wall");
+        simulator.add(addParticle);
+        simulator.add(addWall);
+        
+        
+        addParticle.addActionListener(new ActionListener() {
+           
+            public void actionPerformed(ActionEvent e) {
+                particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2* particlecounter));
+                particlecounter++;
+            }
+        });
 
+        addWall.addActionListener(new ActionListener() {
+           
+            public void actionPerformed(ActionEvent e) {
+                walls.add(new Wall(30+(100* wallcounter), 100, 30+(100 * wallcounter ), 600));
+                wallcounter++;
+            }
+        });
+        
         //Make Particle Threads
         for(int i = 0; i < 10; i++){
             particleThreads.add(new ParticleObject());
@@ -59,14 +84,14 @@ public class Main{
         }
 
         //TODO: Test particleObject Threads REMOVE DEBUG
-        for(int i = 0; i < 2000; i++){
-            particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2*i));
-        }
+    //  for(int i = 0; i < 2000; i++){
+    //        particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2*i));
+    //    }
 
         //TODO: REMOVE TEST WALLS DEBUG
-        for(int i = 0; i < 13; i++){
-            walls.add(new Wall(30+(100*i), 100, 30+(100*i), 600));
-        }  
+    //  for(int i = 0; i < 13; i++){
+    //       walls.add(new Wall(30+(100*i), 100, 30+(100*i), 600));
+    //   }  
 
         int threadIndex = 0;
         int numParticles;
