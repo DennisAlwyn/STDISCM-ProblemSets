@@ -57,21 +57,31 @@ public class Main{
         frame.getContentPane().add(optionsPanel, BorderLayout.EAST);
      
         //TODO: Add Particle and wall creation Panels
-        JButton addParticle = new JButton("Add Particle");
+        JButton addParticle = new JButton("Add Particle (Normal)");
         optionsPanel.add(addParticle);
         
+        JButton uniformDistance = new JButton("Add Particle (UniDistance)");
+        optionsPanel.add(uniformDistance);
+
+        JButton uniformAngle = new JButton("Add Particle (UniAngle)");
+        optionsPanel.add(uniformAngle);
+
+        JButton uniformVelocity = new JButton("Add Particle (UniVelocity)");
+        optionsPanel.add(uniformVelocity);
+
+
         JTextField particleAmount = new JTextField();
         JTextField particleX = new JTextField();
         JTextField particleY = new JTextField();
         JTextField particleSpeed = new JTextField();
         JTextField particleTheta = new JTextField();
-
+      
         JLabel pAmount = new JLabel("Input Amount");
         JLabel pX = new JLabel("Input X");
         JLabel pY = new JLabel("Input Y");
         JLabel pSpeed = new JLabel("Input Speed");
         JLabel pTheta = new JLabel("Input Theta");
-        
+    
         optionsPanel.add(pAmount);
         optionsPanel.add(particleAmount);
 
@@ -120,6 +130,30 @@ public class Main{
 
                 for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
                 particles.add(new Particle(Integer.parseInt(particleX.getText()), Integer.parseInt(particleY.getText()), Integer.parseInt(particleSpeed.getText()), 2* Integer.parseInt(particleTheta.getText()) ));
+                }
+            }
+        });
+
+        uniformDistance.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
+                    
+                }
+            }
+        });
+
+        uniformAngle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
+                    
+                }
+            }
+        });
+
+        uniformVelocity.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
+
                 }
             }
         });
