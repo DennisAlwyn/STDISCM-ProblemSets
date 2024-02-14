@@ -102,7 +102,6 @@ public class Main{
             optionsPanel.add(arcLabels.get(i));
             optionsPanel.add(arcFields.get(i));
         }
-
         //Column 2
         for(int i = 0; i < arcFields2.size(); i++){
             //Arc start and end
@@ -111,6 +110,8 @@ public class Main{
             optionsPanel.add(arcLabels2.get(i));
             optionsPanel.add(arcFields2.get(i));
         }
+
+        //Adding Stagger inputs
         
         //Adding Wall inputs
         ArrayList<JLabel> wallLabels = new ArrayList<>();
@@ -284,17 +285,16 @@ public class Main{
     }
 
     public static void fpsCounter(){
-        //Display FPS
-        if(System.nanoTime() > lastFPSCheck + 500000000){
-            if(fpsCounter != null)
-                fpsCounter.repaint(); //Refresh fps
-        }
         //Measure FPS
-        if(System.nanoTime() > lastFPSCheck + 1000000000){
+        if(System.nanoTime() > lastFPSCheck + 500000000){
             lastFPSCheck = System.nanoTime();
-            if(particles.size() > 0)
-                currentFPS = (totalFrames / particles.size());
-            totalFrames = 0;
+            int numParticles = particles.size();
+            if(numParticles > 0){
+                currentFPS = (totalFrames / numParticles) * 2;
+                totalFrames = 0;
+                if(fpsCounter != null)
+                    fpsCounter.repaint(); //Refresh fps counter
+            }
         }
     }
 
