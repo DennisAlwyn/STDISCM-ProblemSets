@@ -12,6 +12,13 @@ public class Particle {
         y = ypos;
         angle = theta;
         lastUpdate = 0;
+
+        //Limits for speed
+        if(speed <= 0)
+            speed = 1; //Min speed
+        else if(speed > 1000)
+            speed = 1000; //Max speed
+
         waitTime = Math.round(1000000000 / speed); //Divides 1 second in ns by speed to get movement speed
         hasReflected = false;
 
