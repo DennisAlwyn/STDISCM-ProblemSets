@@ -52,7 +52,6 @@ public class Main{
         fpsCounter = new FPSPanel();
         frame.add(fpsCounter);
 
-        
         optionsPanel = new JPanel();
         optionsPanel.setLayout(null);
         optionsPanel.setBounds(1300, 40, 400, 900);
@@ -168,7 +167,7 @@ public class Main{
                     int iteration = 0;
                     for(int i = 0; i < numParticles; i++) {
                         //Start from start angle and spiral
-                        if(iteration > endAngle) //Reset
+                        if(iteration > arcWidth) //Reset
                             iteration = 0;
                         particles.add(new Particle(x, y, v, startAngle+iteration));
                         iteration++;
