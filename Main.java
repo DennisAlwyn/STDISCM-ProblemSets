@@ -151,19 +151,28 @@ public class Main{
                 //Calculate angle per particle, set angle to 1 if N >= 360
                 int numParticles = Integer.parseInt(arcNum.getText());
                 int startAngle = Integer.parseInt(arcStart.getText());
-                int arcWidth = Integer.parseInt(arcEnd.getText()) - startAngle;
+                int endAngle = Integer.parseInt(arcEnd.getText());
+                int arcWidth = endAngle - startAngle;
                 int x = Integer.parseInt(arcX.getText());
                 int y = Integer.parseInt(arcY.getText());
                 int v = Integer.parseInt(arcSpeed.getText());
                 int anglePerIteration;
-                if(numParticles >= 360)
-                    anglePerIteration = 1;
-                else
-                    anglePerIteration = arcWidth / numParticles;
+                anglePerIteration = arcWidth / numParticles;
 
-                for(int i = 0; i < numParticles; i++) {
-                    //Start from start angle and spiral
-                    particles.add(new Particle(x, y, v, startAngle+(anglePerIteration*i)));
+                if(anglePerIteration > 1) //Sparse spawning
+                    for(int i = 0; i < numParticles; i++) {
+                        //Start from start angle and spiral
+                        particles.add(new Particle(x, y, v, startAngle+(anglePerIteration*i)));
+                    }
+                else{ //Dense spawning
+                    int iteration = 0;
+                    for(int i = 0; i < numParticles; i++) {
+                        //Start from start angle and spiral
+                        if(iteration > endAngle) //Reset
+                            iteration = 0;
+                        particles.add(new Particle(x, y, v, startAngle+iteration));
+                        iteration++;
+                    }
                 }
             }
         });
@@ -295,8 +304,6 @@ public class Main{
         public void run(){
             while(true){
                 //Repaint simulator
-                if(optionsPanel != null)
-                    optionsPanel.repaint();
                 if(simulator != null)
                     simulator.repaint();
                 fpsCounter();
