@@ -1,18 +1,18 @@
 public class Particle {
     public double x, y; //Coordinates of particle
     private double vX, vY; //Velocity components
-    private int waitTime; //How long should this particle wait before updating in nanoseconds
+    private long waitTime; //How long should this particle wait before updating in nanoseconds
     private long lastUpdate; //System.nanotime of last time the particle was updated
     public int angle; //Angle that the particle is moving
     private boolean hasReflected; //Checks if particle has already reflected to prevent multiple relfections
 
     //Constructor
-    public Particle(int xpos, int ypos, int speed, int theta){
+    public Particle(int xpos, int ypos, double speed, int theta){
         x = xpos;
         y = ypos;
         angle = theta;
         lastUpdate = 0;
-        waitTime = 1000000000 / speed; //Divides 1 second in ns by speed to get movement speed
+        waitTime = Math.round(1000000000 / speed); //Divides 1 second in ns by speed to get movement speed
         hasReflected = false;
 
         //Set velocity components
