@@ -16,6 +16,7 @@ public class Main{
     //JPanels
     public static SimulatorPanel simulator;
     public static FPSPanel fpsCounter;
+    public static JPanel optionsPanel;
 
     //Threads
     public static Thread rendererThread;
@@ -52,7 +53,7 @@ public class Main{
         frame.add(fpsCounter);
 
         
-        JPanel optionsPanel = new JPanel();
+        optionsPanel = new JPanel();
         optionsPanel.setLayout(null);
         optionsPanel.setBounds(1300, 40, 400, 680);
         frame.add(optionsPanel);
@@ -75,6 +76,7 @@ public class Main{
             optionsPanel.add(pButtons.get(i));
         }
         
+        //Adding Wall inputs
         JTextField wallX1 = new JTextField();
         JTextField wallX2 = new JTextField();
         JTextField wallY1 = new JTextField();
@@ -98,6 +100,8 @@ public class Main{
         optionsPanel.add(wallY2);
 
         frame.setVisible(true);
+
+        //Action Listeners
         addLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
@@ -241,7 +245,7 @@ public class Main{
         public void run(){
             while(true){
                 //Repaint simulator
-                frame.repaint();
+                optionsPanel.repaint();
                 simulator.repaint();
                 fpsCounter();
             }
