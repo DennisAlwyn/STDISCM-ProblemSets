@@ -37,6 +37,7 @@ public class Main{
         //Create Window with JFrame
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         frame.setLayout(null);
         frame.setTitle("Group 5 Particle Simulator");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
