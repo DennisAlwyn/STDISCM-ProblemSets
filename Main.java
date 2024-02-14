@@ -56,18 +56,15 @@ public class Main{
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         frame.getContentPane().add(optionsPanel, BorderLayout.EAST);
      
-        //TODO: Add Particle and wall creation Panels
-        JButton addParticle = new JButton("Add Particle (Normal)");
-        optionsPanel.add(addParticle);
-        
-        JButton uniformDistance = new JButton("Add Particle (UniDistance)");
-        optionsPanel.add(uniformDistance);
+        //TODO: Add Particle and wall creation Panels        
+        JButton addLine = new JButton("Add Particle (Line)");
+        optionsPanel.add(addLine);
 
-        JButton uniformAngle = new JButton("Add Particle (UniAngle)");
-        optionsPanel.add(uniformAngle);
+        JButton addArc = new JButton("Add Particle (Arc)");
+        optionsPanel.add(addArc);
 
-        JButton uniformVelocity = new JButton("Add Particle (UniVelocity)");
-        optionsPanel.add(uniformVelocity);
+        JButton addStagger = new JButton("Add Particle (Stagger)");
+        optionsPanel.add(addStagger);
 
 
         JTextField particleAmount = new JTextField();
@@ -123,18 +120,7 @@ public class Main{
         optionsPanel.add(wallY2);
 
         frame.setVisible(true);
-
-        addParticle.addActionListener(new ActionListener() {
-           
-            public void actionPerformed(ActionEvent e) {
-
-                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
-                particles.add(new Particle(Integer.parseInt(particleX.getText()), Integer.parseInt(particleY.getText()), Integer.parseInt(particleSpeed.getText()), 2* Integer.parseInt(particleTheta.getText()) ));
-                }
-            }
-        });
-
-        uniformDistance.addActionListener(new ActionListener() {
+        addLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
                     
@@ -142,7 +128,7 @@ public class Main{
             }
         });
 
-        uniformAngle.addActionListener(new ActionListener() {
+        addArc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
                     
@@ -150,7 +136,7 @@ public class Main{
             }
         });
 
-        uniformVelocity.addActionListener(new ActionListener() {
+        addStagger.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
 
