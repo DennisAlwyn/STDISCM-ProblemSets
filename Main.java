@@ -145,11 +145,26 @@ public class Main{
             }
         });
 
+        //Arc action listener
         addArc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
-                //    
-                //}
+                //Calculate angle per particle, set angle to 1 if N >= 360
+                int numParticles = Integer.parseInt(arcNum.getText());
+                int startAngle = Integer.parseInt(arcStart.getText());
+                int arcWidth = Integer.parseInt(arcEnd.getText()) - startAngle;
+                int x = Integer.parseInt(arcX.getText());
+                int y = Integer.parseInt(arcY.getText());
+                int v = Integer.parseInt(arcSpeed.getText());
+                int anglePerIteration;
+                if(numParticles >= 360)
+                    anglePerIteration = 1;
+                else
+                    anglePerIteration = arcWidth / numParticles;
+
+                for(int i = 0; i < numParticles; i++) {
+                    //Start from start angle and spiral
+                    particles.add(new Particle(x, y, v, startAngle+(anglePerIteration*i)));
+                }
             }
         });
 
@@ -280,8 +295,10 @@ public class Main{
         public void run(){
             while(true){
                 //Repaint simulator
-                optionsPanel.repaint();
-                simulator.repaint();
+                if(optionsPanel != null)
+                    optionsPanel.repaint();
+                if(simulator != null)
+                    simulator.repaint();
                 fpsCounter();
             }
         }
