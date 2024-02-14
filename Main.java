@@ -36,7 +36,7 @@ public class Main{
         //Create Window with JFrame
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
+        frame.setLayout(null);
         frame.setTitle("Group 5 Particle Simulator");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
        
@@ -53,49 +53,27 @@ public class Main{
 
         
         JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
-        frame.getContentPane().add(optionsPanel, BorderLayout.EAST);
+        optionsPanel.setLayout(null);
+        optionsPanel.setBounds(1300, 40, 400, 680);
+        frame.add(optionsPanel);
      
-        //TODO: Add Particle and wall creation Panels        
+        //TODO: Add Particle and wall creation Panels
+        
+        //Adding buttons
         JButton addLine = new JButton("Add Particle (Line)");
-        optionsPanel.add(addLine);
-
         JButton addArc = new JButton("Add Particle (Arc)");
-        optionsPanel.add(addArc);
-
         JButton addStagger = new JButton("Add Particle (Stagger)");
-        optionsPanel.add(addStagger);
-
-
-        JTextField particleAmount = new JTextField();
-        JTextField particleX = new JTextField();
-        JTextField particleY = new JTextField();
-        JTextField particleSpeed = new JTextField();
-        JTextField particleTheta = new JTextField();
-      
-        JLabel pAmount = new JLabel("Input Amount");
-        JLabel pX = new JLabel("Input X");
-        JLabel pY = new JLabel("Input Y");
-        JLabel pSpeed = new JLabel("Input Speed");
-        JLabel pTheta = new JLabel("Input Theta");
-    
-        optionsPanel.add(pAmount);
-        optionsPanel.add(particleAmount);
-
-        optionsPanel.add(pX);
-        optionsPanel.add(particleX);
-
-        optionsPanel.add(pY);
-        optionsPanel.add(particleY);
-
-        optionsPanel.add(pSpeed);
-        optionsPanel.add(particleSpeed);
-        
-        optionsPanel.add(pTheta);
-        optionsPanel.add(particleTheta);
-        
         JButton addWall = new JButton("Add Wall");
-        optionsPanel.add(addWall);
+
+        ArrayList<JButton> pButtons = new ArrayList<>();
+        pButtons.add(addLine);
+        pButtons.add(addArc);
+        pButtons.add(addStagger);
+        pButtons.add(addWall);
+        for(int i = 0; i < pButtons.size(); i++){
+            pButtons.get(i).setBounds(0, 0+(220*i), 175, 20);
+            optionsPanel.add(pButtons.get(i));
+        }
         
         JTextField wallX1 = new JTextField();
         JTextField wallX2 = new JTextField();
@@ -122,25 +100,25 @@ public class Main{
         frame.setVisible(true);
         addLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
-                    
-                }
+                //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
+                //    
+                //}
             }
         });
 
         addArc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
-                    
-                }
+                //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
+                //    
+                //}
             }
         });
 
         addStagger.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
-
-                }
+                //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
+                //
+                //}
             }
         });
 
