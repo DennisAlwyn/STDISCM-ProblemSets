@@ -36,10 +36,10 @@ public class Main{
         //Create Window with JFrame
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
+        frame.setLayout(new BorderLayout());
         frame.setTitle("Group 5 Particle Simulator");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setVisible(true);
+       
 
         //Add Simulator Panel
         simulator = new SimulatorPanel();
@@ -51,24 +51,83 @@ public class Main{
         fpsCounter = new FPSPanel();
         frame.add(fpsCounter);
 
+        
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
+        frame.getContentPane().add(optionsPanel, BorderLayout.EAST);
+     
         //TODO: Add Particle and wall creation Panels
         JButton addParticle = new JButton("Add Particle");
+        optionsPanel.add(addParticle);
+        
+        JTextField particleAmount = new JTextField();
+        JTextField particleX = new JTextField();
+        JTextField particleY = new JTextField();
+        JTextField particleSpeed = new JTextField();
+        JTextField particleTheta = new JTextField();
+
+        JLabel pAmount = new JLabel("Input Amount");
+        JLabel pX = new JLabel("Input X");
+        JLabel pY = new JLabel("Input Y");
+        JLabel pSpeed = new JLabel("Input Speed");
+        JLabel pTheta = new JLabel("Input Theta");
+        
+        optionsPanel.add(pAmount);
+        optionsPanel.add(particleAmount);
+
+        optionsPanel.add(pX);
+        optionsPanel.add(particleX);
+
+        optionsPanel.add(pY);
+        optionsPanel.add(particleY);
+
+        optionsPanel.add(pSpeed);
+        optionsPanel.add(particleSpeed);
+        
+        optionsPanel.add(pTheta);
+        optionsPanel.add(particleTheta);
+        
         JButton addWall = new JButton("Add Wall");
-        simulator.add(addParticle);
-        simulator.add(addWall);
+        optionsPanel.add(addWall);
         
+        JTextField wallX1 = new JTextField();
+        JTextField wallX2 = new JTextField();
+        JTextField wallY1 = new JTextField();
+        JTextField wallY2 = new JTextField();
+
+        JLabel wX1 = new JLabel("Input X1");
+        JLabel wX2 = new JLabel("Input X2");
+        JLabel wY1 = new JLabel("Input Y1");
+        JLabel wY2 = new JLabel("Input Y2");
         
+        optionsPanel.add(wX1);
+        optionsPanel.add(wallX1);
+
+        optionsPanel.add(wX2);
+        optionsPanel.add(wallX2);
+
+        optionsPanel.add(wY1);
+        optionsPanel.add(wallY1);
+        
+        optionsPanel.add(wY2);
+        optionsPanel.add(wallY2);
+
+        frame.setVisible(true);
+
         addParticle.addActionListener(new ActionListener() {
            
             public void actionPerformed(ActionEvent e) {
-                particles.add(new Particle(SIM_WIDTH/2, SIM_HEIGHT/2, 100, 2* particles.size()));
+
+                for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
+                particles.add(new Particle(Integer.parseInt(particleX.getText()), Integer.parseInt(particleY.getText()), Integer.parseInt(particleSpeed.getText()), 2* Integer.parseInt(particleTheta.getText()) ));
+                }
             }
         });
 
         addWall.addActionListener(new ActionListener() {
            
             public void actionPerformed(ActionEvent e) {
-                walls.add(new Wall(30+(100* walls.size()), 100, 30+(100 * walls.size() ), 600));
+                walls.add(new Wall(Integer.parseInt(wallX1.getText()), Integer.parseInt(wallY1.getText()), Integer.parseInt(wallX2.getText()), Integer.parseInt(wallY2.getText())));
             }
         });
         
@@ -184,6 +243,7 @@ public class Main{
         public void run(){
             while(true){
                 //Repaint simulator
+                frame.repaint();
                 simulator.repaint();
                 fpsCounter();
             }
