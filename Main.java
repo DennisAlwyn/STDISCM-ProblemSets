@@ -193,8 +193,7 @@ public class Main{
                 int x = Integer.parseInt(arcX.getText());
                 int y = Integer.parseInt(arcY.getText());
                 int v = Integer.parseInt(arcSpeed.getText());
-                double anglePerIteration;
-                anglePerIteration = arcWidth / ((double)numParticles);
+                double anglePerIteration = arcWidth / ((double)numParticles);
 
                 for(int i = 0; i < numParticles; i++) {
                     //Start from start angle and spiral
@@ -206,9 +205,18 @@ public class Main{
         //Stagger Action Listener
         addStagger.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
-                //
-                //}
+                int numParticles = Integer.parseInt(stagNum.getText());
+                int startV = Integer.parseInt(stagStart.getText());
+                int endV = Integer.parseInt(stagEnd.getText());
+                int vDelta = endV - startV;
+                double vDeltaPerIteration = vDelta / ((double)numParticles);
+
+                int x = Integer.parseInt(stagX.getText());
+                int y = Integer.parseInt(stagY.getText());
+                int t = Integer.parseInt(stagTheta.getText());
+                for(int i = 0; i < numParticles; i++) {
+                    particles.add(new Particle(x, y, startV+(vDeltaPerIteration*i), t));
+                }
             }
         });
 
