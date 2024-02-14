@@ -55,7 +55,7 @@ public class Main{
         
         optionsPanel = new JPanel();
         optionsPanel.setLayout(null);
-        optionsPanel.setBounds(1300, 40, 400, 680);
+        optionsPanel.setBounds(1300, 40, 400, 900);
         frame.add(optionsPanel);
      
         //TODO: Add Particle and wall creation Panels
@@ -72,33 +72,31 @@ public class Main{
         pButtons.add(addStagger);
         pButtons.add(addWall);
         for(int i = 0; i < pButtons.size(); i++){
-            pButtons.get(i).setBounds(0, 0+(220*i), 175, 20);
+            pButtons.get(i).setBounds(0, 0+(190*i), 175, 20);
             optionsPanel.add(pButtons.get(i));
         }
         
         //Adding Wall inputs
+        ArrayList<JLabel> wallLabels = new ArrayList<>();
+        ArrayList<JTextField> wallFields = new ArrayList<>();
         JTextField wallX1 = new JTextField();
         JTextField wallX2 = new JTextField();
         JTextField wallY1 = new JTextField();
         JTextField wallY2 = new JTextField();
+        wallFields.add(wallX1); wallFields.add(wallY1); wallFields.add(wallX2); wallFields.add(wallY2);
+        JLabel wX1 = new JLabel("X1: ");
+        JLabel wX2 = new JLabel("X2: ");
+        JLabel wY1 = new JLabel("Y1: ");
+        JLabel wY2 = new JLabel("Y2: ");
+        wallLabels.add(wX1); wallLabels.add(wY1); wallLabels.add(wX2); wallLabels.add(wY2);
+        for(int i = 0; i < wallFields.size(); i++){
+            wallLabels.get(i).setBounds(0, 600+(25*i), 25, 20);
+            wallFields.get(i).setBounds(25, 600+(25*i), 50, 20);
+            optionsPanel.add(wallLabels.get(i));
+            optionsPanel.add(wallFields.get(i));
+        }
 
-        JLabel wX1 = new JLabel("Input X1");
-        JLabel wX2 = new JLabel("Input X2");
-        JLabel wY1 = new JLabel("Input Y1");
-        JLabel wY2 = new JLabel("Input Y2");
-        
-        optionsPanel.add(wX1);
-        optionsPanel.add(wallX1);
-
-        optionsPanel.add(wX2);
-        optionsPanel.add(wallX2);
-
-        optionsPanel.add(wY1);
-        optionsPanel.add(wallY1);
-        
-        optionsPanel.add(wY2);
-        optionsPanel.add(wallY2);
-
+        //Make frame visible
         frame.setVisible(true);
 
         //Action Listeners
