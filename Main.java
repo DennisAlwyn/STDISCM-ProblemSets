@@ -59,9 +59,9 @@ public class Main{
         frame.add(optionsPanel);
      
         //Adding buttons
-        JButton addLine = new JButton("Add Particle (Line)");
-        JButton addArc = new JButton("Add Particle (Arc)");
-        JButton addStagger = new JButton("Add Particle (Stagger)");
+        JButton addLine = new JButton("Add Particles (Line)");
+        JButton addArc = new JButton("Add Particles (Arc)");
+        JButton addStagger = new JButton("Add Particles (Stagger)");
         JButton addWall = new JButton("Add Wall");
 
         ArrayList<JButton> pButtons = new ArrayList<>();
@@ -88,7 +88,7 @@ public class Main{
         arcFields.add(arcX); arcFields.add(arcY); arcFields.add(arcSpeed); arcFields.add(arcNum);
         arcFields2.add(arcStart); arcFields2.add(arcEnd);
         JLabel arcXText = new JLabel("X: ");
-        JLabel arcYText = new JLabel("X: ");
+        JLabel arcYText = new JLabel("Y: ");
         JLabel arcSText = new JLabel("V: ");
         JLabel arcNumText = new JLabel("N: ");
         JLabel arcStartText = new JLabel("θi: ");
@@ -113,6 +113,42 @@ public class Main{
         }
 
         //Adding Stagger inputs
+        ArrayList<JTextField> stagFields = new ArrayList<>();
+        ArrayList<JLabel> stagLabels = new ArrayList<>();
+        ArrayList<JTextField> stagFields2 = new ArrayList<>();
+        ArrayList<JLabel> stagLabels2 = new ArrayList<>();
+        JTextField stagX = new JTextField();
+        JTextField stagY = new JTextField();
+        JTextField stagTheta = new JTextField();
+        JTextField stagNum = new JTextField();
+        JTextField stagStart = new JTextField();
+        JTextField stagEnd = new JTextField();
+        stagFields.add(stagX); stagFields.add(stagY); stagFields.add(stagTheta); stagFields.add(stagNum);
+        stagFields2.add(stagStart); stagFields2.add(stagEnd);
+        JLabel stagXText = new JLabel("X: ");
+        JLabel stagYText = new JLabel("Y: ");
+        JLabel stagAText = new JLabel("θ: ");
+        JLabel stagNumText = new JLabel("N: ");
+        JLabel stagStartText = new JLabel("Vi: ");
+        JLabel stagEndText = new JLabel("Vf: ");
+        stagLabels.add(stagXText); stagLabels.add(stagYText); stagLabels.add(stagAText); stagLabels.add(stagNumText);
+        stagLabels2.add(stagStartText); stagLabels2.add(stagEndText);
+        //Column 1
+        for(int i = 0; i < stagFields.size(); i++){
+            //X, Y and Speed and number
+            stagLabels.get(i).setBounds(0, 410+(25*i), 25, 20);
+            stagFields.get(i).setBounds(25, 410+(25*i), 50, 20);
+            optionsPanel.add(stagLabels.get(i));
+            optionsPanel.add(stagFields.get(i));
+        }
+        //Column 2
+        for(int i = 0; i < stagFields2.size(); i++){
+            //Arc start and end
+            stagLabels2.get(i).setBounds(85, 410+(25*i), 25, 20);
+            stagFields2.get(i).setBounds(110, 410+(25*i), 50, 20);
+            optionsPanel.add(stagLabels2.get(i));
+            optionsPanel.add(stagFields2.get(i));
+        }
         
         //Adding Wall inputs
         ArrayList<JLabel> wallLabels = new ArrayList<>();
@@ -167,6 +203,7 @@ public class Main{
             }
         });
 
+        //Stagger Action Listener
         addStagger.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
