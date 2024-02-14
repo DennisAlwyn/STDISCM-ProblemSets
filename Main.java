@@ -156,23 +156,12 @@ public class Main{
                 int x = Integer.parseInt(arcX.getText());
                 int y = Integer.parseInt(arcY.getText());
                 int v = Integer.parseInt(arcSpeed.getText());
-                int anglePerIteration;
-                anglePerIteration = arcWidth / numParticles;
+                double anglePerIteration;
+                anglePerIteration = arcWidth / ((double)numParticles);
 
-                if(anglePerIteration > 1) //Sparse spawning
-                    for(int i = 0; i < numParticles; i++) {
-                        //Start from start angle and spiral
-                        particles.add(new Particle(x, y, v, startAngle+(anglePerIteration*i)));
-                    }
-                else{ //Dense spawning
-                    int iteration = 0;
-                    for(int i = 0; i < numParticles; i++) {
-                        //Start from start angle and spiral
-                        if(iteration > arcWidth) //Reset
-                            iteration = 0;
-                        particles.add(new Particle(x, y, v, startAngle+iteration));
-                        iteration++;
-                    }
+                for(int i = 0; i < numParticles; i++) {
+                    //Start from start angle and spiral
+                    particles.add(new Particle(x, y, v, startAngle+(anglePerIteration*i)));
                 }
             }
         });
