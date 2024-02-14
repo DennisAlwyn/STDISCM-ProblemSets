@@ -352,13 +352,10 @@ public class Main{
             totalFrames++;
         if(System.nanoTime() > lastFPSCheck + 500000000){
             lastFPSCheck = System.nanoTime();
-            int numParticles = particles.size();
-            if(numParticles > 0){
-                currentFPS = totalFrames * 2;
-                totalFrames = 0;
-                if(fpsCounter != null)
-                    fpsCounter.repaint(); //Refresh fps counter
-            }
+            currentFPS = totalFrames * 2;
+            totalFrames = 0;
+            if(fpsCounter != null)
+                fpsCounter.repaint(); //Refresh fps counter
         }
     }
 
