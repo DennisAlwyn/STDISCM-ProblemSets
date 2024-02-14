@@ -31,6 +31,7 @@ public class Main{
     public static ArrayList<Particle> particles = new ArrayList<>();
     public static ArrayList<Wall> walls = new ArrayList<>();
     //NOTE: Any wall or particle that is added to the above lists will automatically be rendered
+    public static int processedParticles = 0;
 
     public static void main(String[] args){
         
@@ -347,11 +348,13 @@ public class Main{
 
     public static void fpsCounter(){
         //Measure FPS
+        if(processedParticles >= particles.size())
+            totalFrames++;
         if(System.nanoTime() > lastFPSCheck + 500000000){
             lastFPSCheck = System.nanoTime();
             int numParticles = particles.size();
             if(numParticles > 0){
-                currentFPS = (totalFrames / numParticles) * 2;
+                currentFPS = totalFrames * 2;
                 totalFrames = 0;
                 if(fpsCounter != null)
                     fpsCounter.repaint(); //Refresh fps counter
@@ -405,9 +408,11 @@ public class Main{
                                     break; //Then stop checking
                                 }
                             }
-                            totalFrames++;
                         }
                     }
+                    processedParticles++; //Particle is processed
+                    if(processedParticles >= particles.size())
+                        processedParticles = 0; //Reset number to 0
                 }
             }
         }
