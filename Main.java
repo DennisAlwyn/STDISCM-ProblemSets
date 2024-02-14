@@ -58,8 +58,6 @@ public class Main{
         optionsPanel.setBounds(1300, 40, 400, 900);
         frame.add(optionsPanel);
      
-        //TODO: Add Particle and wall creation Panels
-        
         //Adding buttons
         JButton addLine = new JButton("Add Particle (Line)");
         JButton addArc = new JButton("Add Particle (Arc)");
@@ -74,6 +72,45 @@ public class Main{
         for(int i = 0; i < pButtons.size(); i++){
             pButtons.get(i).setBounds(0, 0+(190*i), 175, 20);
             optionsPanel.add(pButtons.get(i));
+        }
+
+        //Adding Arc inputs
+        ArrayList<JTextField> arcFields = new ArrayList<>();
+        ArrayList<JLabel> arcLabels = new ArrayList<>();
+        ArrayList<JTextField> arcFields2 = new ArrayList<>();
+        ArrayList<JLabel> arcLabels2 = new ArrayList<>();
+        JTextField arcX = new JTextField();
+        JTextField arcY = new JTextField();
+        JTextField arcSpeed = new JTextField();
+        JTextField arcNum = new JTextField();
+        JTextField arcStart = new JTextField();
+        JTextField arcEnd = new JTextField();
+        arcFields.add(arcX); arcFields.add(arcY); arcFields.add(arcSpeed); arcFields.add(arcNum);
+        arcFields2.add(arcStart); arcFields2.add(arcEnd);
+        JLabel arcXText = new JLabel("X: ");
+        JLabel arcYText = new JLabel("X: ");
+        JLabel arcSText = new JLabel("V: ");
+        JLabel arcNumText = new JLabel("N: ");
+        JLabel arcStartText = new JLabel("θi: ");
+        JLabel arcEndText = new JLabel("θf: ");
+        arcLabels.add(arcXText); arcLabels.add(arcYText); arcLabels.add(arcSText); arcLabels.add(arcNumText);
+        arcLabels2.add(arcStartText); arcLabels2.add(arcEndText);
+        //Column 1
+        for(int i = 0; i < arcFields.size(); i++){
+            //X, Y and Speed and number
+            arcLabels.get(i).setBounds(0, 220+(25*i), 25, 20);
+            arcFields.get(i).setBounds(25, 220+(25*i), 50, 20);
+            optionsPanel.add(arcLabels.get(i));
+            optionsPanel.add(arcFields.get(i));
+        }
+
+        //Column 2
+        for(int i = 0; i < arcFields2.size(); i++){
+            //Arc start and end
+            arcLabels2.get(i).setBounds(85, 220+(25*i), 25, 20);
+            arcFields2.get(i).setBounds(110, 220+(25*i), 50, 20);
+            optionsPanel.add(arcLabels2.get(i));
+            optionsPanel.add(arcFields2.get(i));
         }
         
         //Adding Wall inputs
