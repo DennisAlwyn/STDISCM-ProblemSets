@@ -185,14 +185,27 @@ public class Main{
         //Arc action listener
         addArc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Calculate angle per particle, set angle to 1 if N >= 360
-                int numParticles = Integer.parseInt(arcNum.getText());
-                int startAngle = Integer.parseInt(arcStart.getText());
-                int endAngle = Integer.parseInt(arcEnd.getText());
-                int arcWidth = endAngle - startAngle;
-                int x = Integer.parseInt(arcX.getText());
-                int y = Integer.parseInt(arcY.getText());
-                int v = Integer.parseInt(arcSpeed.getText());
+                int numParticles;
+                int startAngle;
+                int endAngle;
+                int arcWidth;
+                int x;
+                int y;
+                int v;
+
+                //Crash due to invalid input prevention
+                try {
+                    numParticles = Integer.parseInt(arcNum.getText());
+                    startAngle = Integer.parseInt(arcStart.getText());
+                    endAngle = Integer.parseInt(arcEnd.getText());
+                    arcWidth = endAngle - startAngle;
+                    x = Integer.parseInt(arcX.getText());
+                    y = Integer.parseInt(arcY.getText());
+                    v = Integer.parseInt(arcSpeed.getText());
+                } catch (Exception ex) {
+                    return;
+                }
+
                 double anglePerIteration = arcWidth / ((double)numParticles);
 
                 for(int i = 0; i < numParticles; i++) {
@@ -205,15 +218,28 @@ public class Main{
         //Stagger Action Listener
         addStagger.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int numParticles = Integer.parseInt(stagNum.getText());
-                int startV = Integer.parseInt(stagStart.getText());
-                int endV = Integer.parseInt(stagEnd.getText());
+                int numParticles;
+                int startV;
+                int endV;
+                int x;
+                int y;
+                int t;
+
+                //No crash due to invalid input please!!!
+                try {
+                    numParticles = Integer.parseInt(stagNum.getText());
+                    startV = Integer.parseInt(stagStart.getText());
+                    endV = Integer.parseInt(stagEnd.getText());
+                    x = Integer.parseInt(stagX.getText());
+                    y = Integer.parseInt(stagY.getText());
+                    t = Integer.parseInt(stagTheta.getText());
+                } catch (Exception ex) {
+                    return;
+                }
+
                 int vDelta = endV - startV;
                 double vDeltaPerIteration = vDelta / ((double)numParticles);
 
-                int x = Integer.parseInt(stagX.getText());
-                int y = Integer.parseInt(stagY.getText());
-                int t = Integer.parseInt(stagTheta.getText());
                 for(int i = 0; i < numParticles; i++) {
                     particles.add(new Particle(x, y, startV+(vDeltaPerIteration*i), t));
                 }
