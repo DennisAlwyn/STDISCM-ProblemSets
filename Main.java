@@ -341,7 +341,7 @@ public class Main{
                         threadIndex = 0;
                     if(particleThreads.get(threadIndex).isAvailable){ //Assign particle if thread available
                         particleThreads.get(threadIndex).particleIndex = i; //Assign particle
-                        particleThreads.get(threadIndex).interrupt(); //Wake up thread
+                        particleThreads.get(threadIndex).assignTask(); //Assign task to thread
                         threadIndex++; //Increment index, thread is now occupied
                         break; //Move to next particle
                     }
@@ -440,13 +440,25 @@ public class Main{
     public static class ParticleObject extends Thread{
         public boolean isAvailable = true; //Determines if thread is available
         public int particleIndex = 0;
+        private Object waitLock = new Object();
+
+        public void assignTask(){
+            synchronized (waitLock){
+                waitLock.notify();
+            }
+        }
 
         public void run(){
             while(true){
                 isAvailable = true;
-                try {
-                    Thread.sleep(500000000*500000000*500000000);
-                } catch (Exception e) {
+                synchronized (waitLock) {
+                    try {
+                        waitLock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        continue;
+                    }
+
                     isAvailable = false; //Thread is processing something
 
                     //Particle Moves
