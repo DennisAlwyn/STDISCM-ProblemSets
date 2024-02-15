@@ -7,7 +7,7 @@ public class Particle {
     private boolean hasReflected; //Checks if particle has already reflected to prevent multiple relfections
 
     //Constructor
-    public Particle(int xpos, int ypos, double speed, double theta){
+    public Particle(double xpos, double ypos, double speed, double theta){
         x = xpos;
         y = ypos;
         angle = theta;

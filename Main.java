@@ -89,8 +89,8 @@ public class Main{
          JTextField lineTheta = new JTextField();
          lineFields.add(lineX); lineFields.add(lineY); lineFields.add(lineSpeed); lineFields.add(lineNum); lineFields.add(lineTheta);
          lineFields2.add(lineStart); lineFields2.add(lineEnd);
-         JLabel lineXText = new JLabel("X: ");
-         JLabel lineYText = new JLabel("Y: ");
+         JLabel lineXText = new JLabel("Xi: ");
+         JLabel lineYText = new JLabel("Yi: ");
          JLabel lineSText = new JLabel("V: ");
          JLabel lineNumText = new JLabel("N: ");
          JLabel lineEndXText = new JLabel("Xf: ");
@@ -244,7 +244,7 @@ public class Main{
 
                 for(int i = 0; i < numParticles; i++) {
                     //Start from start angle and spiral
-                    particles.add(new Particle(startXPoint + ((int)distance * i), startYPoint+ ((int)distance * i) , speed, theta));
+                    particles.add(new Particle(startXPoint + (distance * i), startYPoint+ (distance * i) , speed, theta));
                 }
             }
         });
