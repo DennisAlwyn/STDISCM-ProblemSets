@@ -44,8 +44,6 @@ public class Main{
         //Add Simulator Panel
         simulator = new SimulatorPanel();
         frame.add(simulator);
-        rendererThread = new rendererObject();
-        rendererThread.start();//Start rendering thread
 
         optionsPanel = new JPanel();
         optionsPanel.setLayout(null);
@@ -208,6 +206,7 @@ public class Main{
         frame.setVisible(true);
 
         //Action Listeners
+        //Line Action Listener
         addLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int numParticles;
@@ -242,7 +241,7 @@ public class Main{
             }
         });
 
-        //Arc action listener
+        //Arc Action Listener
         addArc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int numParticles;
@@ -306,6 +305,8 @@ public class Main{
             }
         });
 
+
+        //Wall Action Listener
         addWall.addActionListener(new ActionListener() {
            
             public void actionPerformed(ActionEvent e) {
@@ -313,11 +314,15 @@ public class Main{
             }
         });
         
-        //Make Particle Threads
+        //Create particle threads
         for(int i = 0; i < 128; i++){
             particleThreads.add(new ParticleObject());
             particleThreads.get(i).start();
         }
+
+        //Create and start rendering thread
+        rendererThread = new rendererObject();
+        rendererThread.start();
 
         int threadIndex = 0;
         int numParticles;
@@ -383,7 +388,7 @@ public class Main{
 
             //FPS limit: ~60fps
             try {
-                Thread.sleep(1000/50);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
