@@ -75,6 +75,46 @@ public class Main{
             optionsPanel.add(pButtons.get(i));
         }
 
+         //Adding Line inputs
+         ArrayList<JTextField> lineFields = new ArrayList<>();
+         ArrayList<JLabel> lineLabels = new ArrayList<>();
+         ArrayList<JTextField> lineFields2 = new ArrayList<>();
+         ArrayList<JLabel> lineLabels2 = new ArrayList<>();
+         JTextField lineX = new JTextField();
+         JTextField lineY = new JTextField();
+         JTextField lineSpeed = new JTextField();
+         JTextField lineNum = new JTextField();
+         JTextField lineStart = new JTextField();
+         JTextField lineEnd = new JTextField();
+         JTextField lineTheta = new JTextField();
+         lineFields.add(lineX); lineFields.add(lineY); lineFields.add(lineSpeed); lineFields.add(lineNum); lineFields.add(lineTheta);
+         lineFields2.add(lineStart); lineFields2.add(lineEnd);
+         JLabel lineXText = new JLabel("X: ");
+         JLabel lineYText = new JLabel("Y: ");
+         JLabel lineSText = new JLabel("V: ");
+         JLabel lineNumText = new JLabel("N: ");
+         JLabel lineEndXText = new JLabel("Xf: ");
+         JLabel lineEndYText = new JLabel("Yf: ");
+         JLabel lineThetaText = new JLabel("θ: ");
+         lineLabels.add(lineXText); lineLabels.add(lineYText); lineLabels.add(lineSText); lineLabels.add(lineNumText); lineLabels.add(lineThetaText);
+         lineLabels2.add(lineEndXText); lineLabels2.add(lineEndYText);
+         //Column 1
+         for(int i = 0; i < lineFields.size(); i++){
+             //X, Y and Speed and number
+             lineLabels.get(i).setBounds(0, 40+(25*i), 25, 20);
+             lineFields.get(i).setBounds(25, 40+(25*i), 50, 20);
+             optionsPanel.add(lineLabels.get(i));
+             optionsPanel.add(lineFields.get(i));
+         }
+         //Column 2
+         for(int i = 0; i < lineFields2.size(); i++){
+             //Arc start and end
+             lineLabels2.get(i).setBounds(85, 40+(25*i), 25, 20);
+             lineFields2.get(i).setBounds(110, 40+(25*i), 50, 20);
+             optionsPanel.add(lineLabels2.get(i));
+             optionsPanel.add(lineFields2.get(i));
+         }
+
         //Adding Arc inputs
         ArrayList<JTextField> arcFields = new ArrayList<>();
         ArrayList<JLabel> arcLabels = new ArrayList<>();
@@ -177,9 +217,35 @@ public class Main{
         //Action Listeners
         addLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //for(int i = 0; i < Integer.parseInt(particleAmount.getText()); i++) {
-                //    
-                //}
+                int numParticles;
+                int startXPoint;
+                int endXPoint;
+                int startYPoint;
+                int endYPoint;
+                int speed;
+                int theta;
+                double uniDistance;
+
+                //Crash due to invalid input prevention
+                try {
+                    numParticles = Integer.parseInt(lineNum.getText());
+                    startXPoint = Integer.parseInt(lineX.getText());
+                    endXPoint = Integer.parseInt(lineStart.getText());
+                    startYPoint = Integer.parseInt(lineY.getText());
+                    endYPoint = Integer.parseInt(lineEnd.getText());
+                    uniDistance = Math.sqrt((endYPoint - startYPoint) * (endYPoint - startYPoint) + (endXPoint - startXPoint) * (endXPoint - startXPoint));
+                    speed = Integer.parseInt(lineSpeed.getText());
+                    theta = Integer.parseInt(lineTheta.getText());
+                } catch (Exception ex) {
+                    return;
+                }
+
+                double distance = uniDistance / ((double)numParticles);
+
+                for(int i = 0; i < numParticles; i++) {
+                    //Start from start angle and spiral
+                    particles.add(new Particle(startXPoint + ((int)distance * i), startYPoint+ ((int)distance * i) , speed, theta));
+                }
             }
         });
 
