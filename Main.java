@@ -321,7 +321,7 @@ public class Main{
         });
         
         //Make Particle Threads
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 128; i++){
             particleThreads.add(new ParticleObject());
             particleThreads.get(i).start();
         }
