@@ -23,7 +23,6 @@ public class Main{
 
     //FPS
     public static long lastFPSCheck = 0;
-    public static int currentFPS = 0;
     public static int totalFrames = 0;
 
     //ArrayLists of walls and particles
@@ -395,9 +394,9 @@ public class Main{
         //Measure FPS
         if(System.nanoTime() > lastFPSCheck + 500000000){
             lastFPSCheck = System.nanoTime();
-            currentFPS = totalFrames * 4; //This is the closest match to the fps on the measurement tools
+            //This is the closest match to the fps on Windows Game Bar
+            frame.setTitle("Group 5 Particle Simulator | FPS: " + String.valueOf(totalFrames * 4)); //Update fps display
             totalFrames = 0;
-            frame.setTitle("Group 5 Particle Simulator | FPS: " + String.valueOf(currentFPS)); //Update fps display
         }
     }
 
