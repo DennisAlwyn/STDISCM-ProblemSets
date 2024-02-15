@@ -15,7 +15,6 @@ public class Main{
     
     //JPanels
     public static SimulatorPanel simulator;
-    public static FPSPanel fpsCounter;
     public static JPanel optionsPanel;
 
     //Threads
@@ -39,7 +38,7 @@ public class Main{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         frame.setLayout(null);
-        frame.setTitle("Group 5 Particle Simulator");
+        frame.setTitle("Group 5 Particle Simulator | FPS: 0"); //Title displays fps
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
        
 
@@ -48,10 +47,6 @@ public class Main{
         frame.add(simulator);
         rendererThread = new rendererObject();
         rendererThread.start();//Start rendering thread
-
-        //Add FPS Panel
-        fpsCounter = new FPSPanel();
-        frame.add(fpsCounter);
 
         optionsPanel = new JPanel();
         optionsPanel.setLayout(null);
@@ -350,30 +345,6 @@ public class Main{
         }
     }
 
-    public static class FPSPanel extends JPanel{ //Displays FPS
-        private final int W = 51, H = 25;
-
-        public FPSPanel(){
-            this.setBounds(10, 10, W, H);
-        }
-
-        public void paintComponent(Graphics g){
-            //Call paintComponent from JPanel
-            super.paintComponent(g);
-
-            //Cast graphics to g2D
-            Graphics2D g2D = (Graphics2D) g;
-
-            //Clear screen
-            g2D.setColor(Color.BLACK);
-            g2D.fillRect(0, 0, W, H);
-
-            //Draw FPS
-            g2D.setColor(Color.RED);
-            g2D.drawString("FPS: " + String.valueOf(currentFPS), 1, H-9);
-        }
-    }
-
     public static class SimulatorPanel extends JPanel{ //Class for the Particle simulator JPanel
 
         public SimulatorPanel(){
@@ -410,6 +381,13 @@ public class Main{
             }
 
             totalFrames++; //Add to total frames since by this point, everything has been drawn
+
+            //FPS limit: ~60fps
+            try {
+                Thread.sleep(1000/50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -419,8 +397,7 @@ public class Main{
             lastFPSCheck = System.nanoTime();
             currentFPS = totalFrames * 4; //This is the closest match to the fps on the measurement tools
             totalFrames = 0;
-            if(fpsCounter != null)
-                fpsCounter.repaint(); //Refresh fps counter
+            frame.setTitle("Group 5 Particle Simulator | FPS: " + String.valueOf(currentFPS)); //Update fps display
         }
     }
 
