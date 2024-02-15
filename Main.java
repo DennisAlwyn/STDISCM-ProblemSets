@@ -31,7 +31,6 @@ public class Main{
     public static ArrayList<Particle> particles = new ArrayList<>();
     public static ArrayList<Wall> walls = new ArrayList<>();
     //NOTE: Any wall or particle that is added to the above lists will automatically be rendered
-    public static int processedParticles = 0;
 
     public static void main(String[] args){
         
@@ -409,16 +408,16 @@ public class Main{
             for(int i = 0; i < numWalls; i++){
                 g2D.drawLine(walls.get(i).x1, walls.get(i).y1, walls.get(i).x2, walls.get(i).y2);
             }
+
+            totalFrames++; //Add to total frames since by this point, everything has been drawn
         }
     }
 
     public static void fpsCounter(){
         //Measure FPS
-        if(processedParticles >= particles.size())
-            totalFrames++;
         if(System.nanoTime() > lastFPSCheck + 500000000){
             lastFPSCheck = System.nanoTime();
-            currentFPS = totalFrames * 2;
+            currentFPS = totalFrames * 4; //This is the closest match to the fps on the measurement tools
             totalFrames = 0;
             if(fpsCounter != null)
                 fpsCounter.repaint(); //Refresh fps counter
@@ -485,9 +484,6 @@ public class Main{
                             }
                         }
                     }
-                    processedParticles++; //Particle is processed
-                    if(processedParticles >= particles.size())
-                        processedParticles = 0; //Reset number to 0
                 }
             }
         }
